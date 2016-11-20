@@ -12,6 +12,6 @@ Rails.application.routes.draw do
   match '/game/:id/player_score' => 'game#player_score', via: :get, as: 'game_player_score'
   match '/game/:id/new_round' => 'game#new_round', via: :get, as: 'game_new_round'
 
-  # mount ActionCable.server => '/ws'
+  mount ActionCable.server => '/cable'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
