@@ -359,7 +359,7 @@ html .kp-blk .xpdclose ._HWg, html .kp-blk .xpdopen ._IWg {
 ._U6i {
   border-collapse: collapse;
   margin: 12px auto 0;
-  max-width: 400px;
+  max-width: 500px;
   width: 100%
 }
 
@@ -704,4 +704,13 @@ a.duf3 {
 
 ._sxg ._pxg span, ._pxg._Esh span {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAQAAAADQ4RFAAAA9klEQVR4AZXUoY7iUABG4SYYEgwYwhOsx4MlqUaAQ/AGMxqHIUHDC4DnATaMx7MORVAEh5vAtzUN7M69TXuOurc5SfuLJjH8ykzCJmJ++qgefWVWjJq+M5vVojEYV4s2YFMlqrmBm1r5qC+nXz5ayFmUj/7IOYajkd//uffO/sfzUdZJXZTlIs1fr2WrDFutf79p6KqIq2FoiLadGDvt+HoTISbFk3eF6BZHMyFmxdFBiENR1PEU4qkTj6ZeHDNfTONRPvnDUj1z6ZFPHovq7uCkJ7/rOYG7ejhKwVrD+23DGqThaOVsIAk4cLYKR3NN8b/T/HX6C7jRb/QEnjPPAAAAAElFTkSuQmCC)
+}
+
+.no-pointer {
+  cursor: default !important;
+}
+
+.notification-text {
+  font-family: Roya, Tahoma;
+  opacity: 0;
 }

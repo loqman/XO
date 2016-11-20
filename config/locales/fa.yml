@@ -1,2 +1,29 @@
 fa:
   application_title: 'دوز'
+  enter_your_name: "لطفاً نام خود را وارد کنید"
+  mongoid:
+    models:
+      player:
+        one: 'بازیکن'
+        other: 'بازیکنان'
+      game:
+        one: ''
+        other: ''
+      round:
+        one: ''
+        other: ''
+      move:
+        one: ''
+        other: ''
+    attributes:
+      player:
+        nickname: 'نام مستعار'
+        points: 'امتیازات'
+    errors:
+      models:
+        player:
+          attributes:
+            nickname:
+              blank: 'لطفاً یک نام برای خود انتخاب کنید.'
+  text:
+    winner: "برنده!"

@@ -3,10 +3,12 @@ class Player
   include Mongoid::Timestamps
 
   field :nickname, type: String
-  field :points, type: String
+  field :points, type: String, default: 0
 
   has_many :x_games, class_name: 'Game', inverse_of: :x_player
   has_many :o_games, class_name: 'Game', inverse_of: :o_player
+
+  validates_presence_of :nickname
 
   def games
     self.x_games + self.o_games
