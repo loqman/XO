@@ -12,16 +12,19 @@ $(document).on 'turbolinks:load', ->
           $('.notification-text').css('opacity', 0)
           $('#x_winner_text').css('opacity', 1)
           $('#restart_game').css('opacity', 1)
+          $('#replay_game').css('display', '')
           get_players_score()
         else if data == 'o'
           $('.notification-text').css('opacity', 0)
           $('#o_winner_text').css('opacity', 1)
           $('#restart_game').css('opacity', 1)
+          $('#replay_game').css('display', '')
           get_players_score()
         else if data == 'draw'
           $('.notification-text').css('opacity', 0)
           $('#draw_text').css('opacity', 1)
           $('#restart_game').css('opacity', 1)
+          $('#replay_game').css('display', '')
           get_players_score()
 
     turn_shape = ->
@@ -53,29 +56,36 @@ $(document).on 'turbolinks:load', ->
 
       received: (data) ->
         console.log data
-        if 'new_round' of data
+        if 'new_player' of data
+          $('#o_player_name').text data['player_name']
+          turn_shape()
+          get_players_score()
+        else if 'new_round' of data
           if data = 'true'
             $('#restart_game').css('opacity', 0)
+            $('#replay_game').css('display', 'none')
             turn_shape()
             $('.no-pointer').removeClass('no-pointer')
-            $('.o_shape_aria').css('display', 'none')
-            $('.x_shape_aria').css('display', 'none')
+            $('._Y6i .o_shape_aria').css('display', 'none')
+            $('._Y6i .x_shape_aria').css('display', 'none')
           else
             console.log 'new round failed'
         else
           cell = $("#cell-#{data['col_num']}x#{data['row_num']}")
           unless $(cell).hasClass('no-pointer')
-            console.log cell
             $svg = $(cell).find(".#{data['shape']}_shape_aria").drawsvg  duration: 150, stagger: 100
             $(cell).find(".#{data['shape']}_shape_aria").css('display', '')
             $svg.drawsvg('animate')
             $(cell).addClass('no-pointer')
-          turn_shape()
+          unless 'replay' of data
+            turn_shape()
 
 
       play: (col_num, row_num) ->
         @perform 'play', col_num: col_num, row_num: row_num, game_id: game_id, player_id: player_id
 
+      replay: ->
+        @perform 'replay', game_id: game_id
 
     $('._Y6i').click ->
       cell = this
@@ -90,5 +100,12 @@ $(document).on 'turbolinks:load', ->
 
     $('#restart_game').click ->
       restart_game_url = $('#current_player').data 'restart-game'
-      $.get restart_game_url, (data) ->
+      $.get restart_game_url
+
+    $('#replay_game').click ->
+      $('.no-pointer').removeClass('no-pointer')
+      $('._Y6i .o_shape_aria').css('display', 'none')
+      $('._Y6i .x_shape_aria').css('display', 'none')
+      App.game.replay()
+      $('#replay_game').css('display', 'none')
 

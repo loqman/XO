@@ -27,3 +27,6 @@ fa:
               blank: 'لطفاً یک نام برای خود انتخاب کنید.'
   text:
     winner: "برنده!"
+    game_in_progress: "بازی در جریان است."
+    game_finished: "بازی پایان یافته است."
+    waiting: "..."

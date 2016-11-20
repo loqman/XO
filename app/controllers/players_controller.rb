@@ -1,4 +1,6 @@
 class PlayersController < ApplicationController
+  before_action :set_player, only: [:show, :edit, :update, :destroy]
+
 
   def index
   end
@@ -20,7 +22,6 @@ class PlayersController < ApplicationController
   end
 
   def show
-
   end
 
   def edit
@@ -38,5 +39,9 @@ class PlayersController < ApplicationController
   private
   def player_params
     params.require('player').permit :nickname
+  end
+
+  def set_player
+    @player = Player.find params[:id]
   end
 end

@@ -21,7 +21,7 @@
                     <%= game.x_player.nickname %>
                   </td>
                   <td>
-                    <g-raised-button class="_D8i iM8ZRnQChF7I-x03_8M7xFMM _fAg _Kwg _MMk
+                    <g-raised-button class="_D8i _fAg _Kwg _MMk
                         <% if game.player_shape(current_player) == 'x' %> TTT-active
                         <% end %>" role="button" tabindex="0">
                       <div class="_BDi">
@@ -33,18 +33,32 @@
                     </g-raised-button>
                   </td>
                   <td>
-                    <g-raised-button class="_D8i iM8ZRnQChF7I-vd6D2hpRJts _fAg _Kwg _MMk
+                    <% if game.o_player.nil? %>
+                        <g-raised-button class="_D8i _fAg _Kwg _MMk">
+                          <div class="_BDi">
+                            <svg class="o_shape_aria" aria-label="O" role="img" viewBox="0 0 128 128">
+                              <path d="M64,16A48,48 0 1,0 64,112A48,48 0 1,0 64,16" style="stroke: rgb(139, 112, 211)"></path>
+                            </svg>
+                            <span id="o_player_score">-</span></div>
+                        </g-raised-button>
+                    <% else %>
+                        <g-raised-button class="_D8i _fAg _Kwg _MMk
                         <% if game.player_shape(current_player) == 'o' %> TTT-active
                         <% end %>" tabindex="0">
-                      <div class="_BDi">
-                        <svg class="o_shape_aria" aria-label="O" role="img" viewBox="0 0 128 128">
-                          <path d="M64,16A48,48 0 1,0 64,112A48,48 0 1,0 64,16" style="stroke: rgb(139, 112, 211)"></path>
-                        </svg>
-                        <span id="o_player_score"><%= game.o_player_winnings %></span></div>
-                    </g-raised-button>
+                          <div class="_BDi">
+                            <svg class="o_shape_aria" aria-label="O" role="img" viewBox="0 0 128 128">
+                              <path d="M64,16A48,48 0 1,0 64,112A48,48 0 1,0 64,16" style="stroke: rgb(139, 112, 211)"></path>
+                            </svg>
+                            <span id="o_player_score"><%= game.o_player_winnings %></span></div>
+                        </g-raised-button>
+                    <% end %>
                   </td>
-                  <td class="text-center" style="font-family: Roya;">
-                    <%= game.o_player.nickname %>
+                  <td class="rtl text-center" id="o_player_name" style="font-family: Roya;">
+                    <% if game.o_player.nil? %>
+                      <%= t 'text.waiting' %>
+                    <% else %>
+                        <%= game.o_player.nickname %>
+                    <% end %>
                   </td>
                 </tr>
                 </tbody>
@@ -62,6 +76,7 @@
                     </svg>
                     Turn
                   </span>
+                <span class="rtl notification-text" id="waiting_other_player" style="opacity: 1;">در انتظار بازیکن دیگر ...</span>
                 <span class="rtl notification-text" id="x_turn_text">نوبت X</span>
                 <span class="rtl notification-text" id="o_turn_text">نوبت O</span>
                 <span class="rtl notification-text" id="x_winner_text">X برنده این دست است.</span>
@@ -190,6 +205,9 @@
             </div>
             <g-raised-button class="_s7i _fAg _Kwg _MMk" id="restart_game" style="opacity: 0;" role="button" tabindex="0">
               <div class="_BDi" style="font-family: Yekan;">شروع دوباره</div>
+            </g-raised-button>
+            <g-raised-button class="_s7i _fAg _Kwg _MMk" id="replay_game" style="display: none;" role="button" tabindex="0">
+              <div class="_BDi" style="font-family: Yekan;">بازپخش بازی</div>
             </g-raised-button>
           </div><!--n--></div>
       </div>

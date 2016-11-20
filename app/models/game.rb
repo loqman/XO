@@ -88,7 +88,6 @@ class Game
     self.current_round.update({ winner: 'draw' })
   end
 
-  # private
   def current_round
     current_round = self.rounds.last
     if current_round.nil?
@@ -105,4 +104,5 @@ class Game
       self.rounds.create! first_move: 'o'
     end
   end
+
 end

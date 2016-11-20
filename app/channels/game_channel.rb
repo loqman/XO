@@ -21,5 +21,13 @@ class GameChannel < ApplicationCable::Channel
     end
   end
 
+  def replay(data)
+    game = Game.find data['game_id']
+    game.current_round.moves.each do |move|
+      sleep 1
+      ActionCable.server.broadcast "game_#{params['game_id']}_channel", shape: move.shape, col_num: move.col_num, row_num: move.row_num, replay: true
+    end
+  end
+
 end
 

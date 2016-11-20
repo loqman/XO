@@ -25,6 +25,7 @@ class GameController < ApplicationController
         format.html
       else
         if @game.play(current_player)
+          ActionCable.server.broadcast "game_#{params[:id]}_channel", new_player: true, player_name: current_player.nickname
           format.html
         else
           format.html { redirect_to game_error_full_path }

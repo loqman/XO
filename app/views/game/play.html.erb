@@ -1,7 +1,9 @@
 <div class="col-xs-12">
   <h3 class="title">
     <%= image_tag 'logo.png', class: 'logo' %> دوز
-    <small class="pull-left"><%= current_player.nickname %></small>
+    <small class="pull-left">
+      <%= link_to current_player.nickname, current_player %>
+    </small>
   </h3>
   <%= render 'game', game: @game %>
 </div>
