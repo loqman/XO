@@ -1,5 +1,6 @@
 class GameController < ApplicationController
   before_action :check_for_player
+  before_action :set_game, only: [:play, :is_current_player_turn, :turn_shape, :player_score, :check_for_winner, :new_round]
 
   def index
     @games = Game.where(in_progress: true, public: true).lte(number_of_participants: 1)
@@ -18,7 +19,6 @@ class GameController < ApplicationController
   end
 
   def play
-    @game = Game.find params[:id]
     session[:game_id] = @game.id.to_s
     respond_to do |format|
       if @game.is_playing(current_player)
@@ -34,7 +34,6 @@ class GameController < ApplicationController
   end
 
   def is_current_player_turn
-    @game = Game.find params[:id]
     if @game.current_round.finished?
       render inline: 'finished'
     else
@@ -47,12 +46,10 @@ class GameController < ApplicationController
   end
 
   def turn_shape
-    @game = Game.find params[:id]
     render inline: "#{@game.turn_shape}"
   end
 
   def player_score
-    @game = Game.find params[:id]
     if params[:shape] == 'x'
       render inline: @game.x_player_winnings.to_s
     else
@@ -61,13 +58,11 @@ class GameController < ApplicationController
   end
 
   def check_for_winner
-    @game = Game.find params[:id]
     @game.check_for_winner
     render inline: @game.current_round.winner
   end
 
   def new_round
-    @game = Game.find params[:id]
     if @game.current_round.finished?
       @game.new_round!
       ActionCable.server.broadcast "game_#{params[:id]}_channel", new_round: true
@@ -82,6 +77,10 @@ class GameController < ApplicationController
     unless current_player
       redirect_to root_path
     end
+  end
+
+  def set_game
+    @game = Game.find params[:id]
   end
 
 end
