@@ -1,3 +1,13 @@
+production:
+  clients:
+    default:
+      database: tic_tac_toe_production
+      hosts:
+        - localhost:27017
+      options:
+        read:
+          mode: :primary
+        max_pool_size: 5
 development:
   # Configure available database clients. (required)
   clients:
